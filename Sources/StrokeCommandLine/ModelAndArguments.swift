@@ -1,5 +1,7 @@
 import Foundation
+#if !os(Linux)
 import Dispatch
+#endif
 import StrokeModel
 import ArgParse
 
@@ -62,7 +64,7 @@ public final class ModelAndArguments {
             parser.found(Arguments.nihss.rawValue) {
             // We use nihss only if race is not also supplied
             let nihss = parser.getDouble(Arguments.nihss.rawValue)
-            race = nihss_to_race(nihss: nihss)
+            race = Race.fromNIHSS(nihss: nihss)
         } else {
             race = parser.getDouble(Arguments.race.rawValue)
         }
@@ -83,18 +85,24 @@ public final class ModelAndArguments {
             throw Error.primaryTimesMismatch
         }
 
-        let start = DispatchTime.now()
+        let start = Date()
         let model = StrokeModel(mi)
         let results: Results
         if baseCase {
             results = model.run()
         } else {
-            results = model.runWithVariance(simulation_count: evals_per_set,
-                                            completion_handler: {_, _ in })
+            #if os(Linux)
+            let useGCD = false
+            #else
+            let useGCD = true
+            #endif
+            results = model.runWithVariance(simulationCount: evals_per_set,
+                                            completionHandler: {_, _ in },
+                                            useGCD: useGCD)
         }
-        let end = DispatchTime.now()
-        let nano_time = end.uptimeNanoseconds - start.uptimeNanoseconds
-        let sim_time = Double(nano_time) / 1_000_000_000
+        let end = Date()
+        let time_dif = end.timeIntervalSince(start)
+        let sim_time = Double(time_dif)
 
         print(results.string)
         print("\nSimulation time: \(sim_time) seconds")

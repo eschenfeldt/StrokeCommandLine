@@ -1,7 +1,7 @@
-import Foundation
 import ArgParse
 
 #if os(Linux)
+    import Glibc
     Glibc.srandom(UInt32(Glibc.time(nil)))
 #endif
 

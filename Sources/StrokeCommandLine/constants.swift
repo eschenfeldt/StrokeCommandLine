@@ -5,7 +5,7 @@
 //  Created by Patrick Eschenfeldt (ITA) on 3/30/18.
 //
 
-import Foundation
+//import Foundation
 
 enum Arguments: String {
     case baseCase = "base_case"
@@ -53,7 +53,8 @@ enum Arguments: String {
         case .primary: shortNames = ["prim", "p"]
         case .transfer: shortNames = ["trans", "t"]
         }
-        return (["--" + self.rawValue] + shortNames).joined(separator: " -")
+        let withDashes = ([self.rawValue] + shortNames).map { $0.count == 1 ? "-" + $0 : "--" + $0 }
+        return withDashes.joined(separator: " ")
     }
 }
 
