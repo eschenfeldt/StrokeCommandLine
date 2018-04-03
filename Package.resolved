@@ -12,11 +12,11 @@
       },
       {
         "package": "StrokeModel",
-        "repositoryURL": "/Users/peschenfeldt-ita/Dropbox (Partners HealthCare)/Stroke/StrokeModel",
+        "repositoryURL": "https://github.com/eschenfeldt/stroke-swift.git",
         "state": {
           "branch": null,
-          "revision": "630fe23a5e730058225d153405c058d55e6f9cd9",
-          "version": "0.3.1"
+          "revision": "4e14abe3245397bcfc9dd613e5af7be23c1b4661",
+          "version": "0.1.0"
         }
       }
     ]

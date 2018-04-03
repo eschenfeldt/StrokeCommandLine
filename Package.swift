@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "StrokeCommandLine",
     dependencies: [
-        .package(url: "../StrokeModel", from: "0.1.2"),
+        .package(url: "https://github.com/eschenfeldt/stroke-swift.git", from: "0.1.0"),
         .package(url: "https://github.com/dmulholland/ArgParse.git", from:"0.1.0"),
     ],
     targets: [
